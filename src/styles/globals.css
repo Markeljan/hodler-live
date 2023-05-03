@@ -9,3 +9,29 @@ iframe[data-xstate] {
   left: 0;
   bottom: 0;
 }
+
+:root {
+  --dark-primary: #1F1F1F;
+  --dark-secondary: #2C2C2C;
+  --dark-accent: #4A4A4A;
+  --dark-text-primary: #E6E6E6;
+  --dark-text-secondary: #A9A9A9;
+  --dark-text-accent: #6F6F6F;
+
+  --color-primary: #3C91E6;
+  --color-secondary: #9FD356;
+  --color-tertiary: #F85F73;
+  --color-info: #42B9EB;
+  --color-warning: #FFC857;
+  --color-danger: #EF476F;
+}
+
+body {
+  background-color: var(--dark-primary);
+  color: var(--dark-text-primary);
+}
+
+button {
+  background-color: var(--color-primary);
+  color: var(--dark-text-primary);
+}
