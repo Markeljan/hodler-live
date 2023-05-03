@@ -66,7 +66,7 @@ const App = () => {
   async function handleCreateRoom(title: string, hostWallets: Array<string>) {
     const response = await createRoom(title, hostWallets);
     console.log("Response: ", response);
-    setRoomId(response.roomId);
+    setRoomId(response.data.roomId);
   }
 
   async function handleCreateGatedRoom(
