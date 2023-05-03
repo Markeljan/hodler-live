@@ -58,7 +58,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    initialize("KL1r3E1yHfcrRbXsT4mcE-3mK60Yc3YR");
+    initialize(process.env.NEXT_PUBLIC_PROJECT_ID || "");
   }, []);
 
   async function handleCreateRoom(title: string, hostWallets: Array<string>) {
