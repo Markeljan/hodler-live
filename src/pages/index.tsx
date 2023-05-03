@@ -18,6 +18,8 @@ import { useAccount, useSignMessage } from "wagmi";
 import { createGatedRoom, createRoom } from "../utils/apiClient";
 import Input from "../components/Input";
 
+const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID || "";
+
 const App = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { state, send } = useMeetingMachine();
@@ -58,7 +60,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    initialize(process.env.NEXT_PUBLIC_PROJECT_ID || "");
+    initialize(PROJECT_ID);
   }, []);
 
   async function handleCreateRoom(title: string, hostWallets: Array<string>) {

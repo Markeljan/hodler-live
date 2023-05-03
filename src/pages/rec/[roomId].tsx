@@ -6,6 +6,8 @@ import { usePeers } from "@huddle01/react/hooks";
 import { useRecorder } from "@huddle01/react/app-utils";
 import { useRouter } from "next/router";
 
+const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID || "";
+
 const App = () => {
   const router = useRouter();
   const { peers } = usePeers();
@@ -16,7 +18,7 @@ const App = () => {
     setRoomId(router.query.roomId?.toString() || "");
   }, [router.query.roomId?.toString()]);
 
-  useRecorder(roomId, process.env.NEXT_PUBLIC_PROJECT_ID || "");
+  useRecorder(roomId, PROJECT_ID);
 
   return (
     <div className="grid grid-cols-2">
