@@ -1,4 +1,4 @@
-<img width="309" alt="hodler1" src="https://user-images.githubusercontent.com/12901349/236304940-5b44e38f-25b7-443e-9f26-2c20e0365721.png">
+<img width="272" alt="hodler" src="https://user-images.githubusercontent.com/12901349/236305076-cc237b15-b3e2-4d3d-a127-64e4dbac5550.png">
 
 
 # PROJECT LINKS
