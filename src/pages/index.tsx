@@ -98,12 +98,11 @@ const App = () => {
       <div className="h-1/4 w-1/4">
         <img src="/hodler-mountain.png" alt="Hodler" />
       </div>
-      <div className="grid grid-cols-2">
-        <div>
+      <div className="grid grid-row-2">
+        <div className="section flex flex-col items-center justify-center">
           <h1 className="text-6xl font-bold">Hodler.live</h1>
-
           <ConnectButton />
-          <div>
+          <div className="sign-message">
             <Button
               onClick={async () => {
                 const msg = await getMessage(address || "");
@@ -113,176 +112,189 @@ const App = () => {
               Sign Message
             </Button>
           </div>
-
-          <h2 className="text-2xl">Room State</h2>
-          <h3 className="break-words">{JSON.stringify(state.value)}</h3>
-
-          <h2 className="text-2xl">Me Id</h2>
-          <div className="break-words">{JSON.stringify(state.context.peerId)}</div>
-          <h2 className="text-2xl">DisplayName</h2>
-          <div className="break-words">{JSON.stringify(state.context.displayName)}</div>
-          <h2 className="text-2xl">Recording Data</h2>
-          <div className="break-words">{JSON.stringify(recordingData)}</div>
-
-          <h2 className="text-2xl">Error</h2>
-          <div className="break-words text-red-500">{JSON.stringify(state.context.error)}</div>
-          <h2 className="text-2xl">Peers</h2>
-          <div className="break-words">{JSON.stringify(peers)}</div>
-          <h2 className="text-2xl">Consumers</h2>
-          <div className="break-words">{JSON.stringify(state.context.consumers)}</div>
-
-          <h2 className="text-3xl text-blue-500 font-extrabold">Idle</h2>
-          
-          <Input
-            type="text"
-            placeholder="Your Project Id"
-            value={projectId}
-            onChange={setProjectId}
-          />
-          <Button
-            disabled={!initialize.isCallable}
-            onClick={() => {
-              initialize(projectId);
-            }}
-          >
-            INIT
-          </Button>
-
-          <h2 className="text-3xl text-red-500 font-extrabold">Create Room</h2>
-          <Input type="text" placeholder="Room Title" value={roomTitle} onChange={setRoomTitle} />
-          <Input
-            type="text"
-            placeholder="Wallet List"
-            value={walletList}
-            onChange={setWalletList}
-          />
-          <Button
-            onClick={() => {
-              handleCreateRoom(roomTitle, walletList.split(","));
-            }}
-          >
-            Create Room
-          </Button>
-
-          <h2 className="text-3xl text-red-500 font-extrabold">Create Room</h2>
-          <Input type="text" placeholder="Room Title" value={roomTitle} onChange={setRoomTitle} />
-          <Input
-            type="text"
-            placeholder="Wallet List"
-            value={walletList}
-            onChange={setWalletList}
-          />
-          <Button
-            onClick={() => {
-              handleCreateGatedRoom(roomTitle, walletList.split(","), "ERC20", "ETHEREUM", [
-                "0x408e41876cCCDC0F92210600ef50372656052a38",
-              ]);
-            }}
-          >
-            Create Gated Room
-          </Button>
-
-          <h2 className="text-3xl text-red-500 font-extrabold">Initialized</h2>
-          <Input type="text" placeholder="Your Room Id" value={roomId} onChange={setRoomId} />
-          <Input
-            type="text"
-            placeholder="Your Access Token (optional)"
-            value={accessToken}
-            onChange={setAccessToken}
-          />
-          <Button
-            disabled={!joinLobby.isCallable}
-            onClick={() => {
-              if (accessToken) joinLobby(roomId, accessToken);
-              else joinLobby(roomId);
-            }}
-          >
-            JOIN_LOBBY
-          </Button>
-
-          <h2 className="text-3xl text-yellow-500 font-extrabold">Lobby</h2>
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex-col room-info justify-center text-align-center">
+            <h2 className="text-2xl">Room State</h2>
+            <h3 className="break-words">{JSON.stringify(state.value)}</h3>
+            <h2 className="text-2xl">Me Id</h2>
+            <div className="break-words">{JSON.stringify(state.context.peerId)}</div>
+            <h2 className="text-2xl">DisplayName</h2>
+            <div className="break-words">{JSON.stringify(state.context.displayName)}</div>
+            <h2 className="text-2xl">Recording Data</h2>
+            <div className="break-words">{JSON.stringify(recordingData)}</div>
+            <h2 className="text-2xl">Error</h2>
+            <div className="break-words text-red-500">{JSON.stringify(state.context.error)}</div>
+            <h2 className="text-2xl">Peers</h2>
+            <div className="break-words">{JSON.stringify(peers)}</div>
+            <h2 className="text-2xl">Consumers</h2>
+            <div className="break-words">{JSON.stringify(state.context.consumers)}</div>
+          </div>
+        </div>
+        <div className="section flex flex-col items-center justify-center">
+          <div className="idle">
+            <h2 className="text-3xl text-blue-500 font-extrabold">Idle</h2>
             <Input
               type="text"
-              placeholder="Your Room Id"
-              value={displayNameText}
-              onChange={setDisplayNameText}
+              placeholder="Your Project Id"
+              value={projectId}
+              onChange={setProjectId}
             />
             <Button
-              disabled={!setDisplayName.isCallable}
+              disabled={!initialize.isCallable}
               onClick={() => {
-                setDisplayName(displayNameText);
+                initialize(projectId);
               }}
             >
-              {`SET_DISPLAY_NAME error: ${displayNameError}`}
-            </Button>
-            <Button disabled={!fetchVideoStream.isCallable} onClick={fetchVideoStream}>
-              FETCH_VIDEO_STREAM
-            </Button>
-
-            <Button disabled={!fetchAudioStream.isCallable} onClick={fetchAudioStream}>
-              FETCH_AUDIO_STREAM
-            </Button>
-
-            <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
-              JOIN_ROOM
-            </Button>
-
-            <Button
-              disabled={!state.matches("Initialized.JoinedLobby")}
-              onClick={() => send("LEAVE_LOBBY")}
-            >
-              LEAVE_LOBBY
-            </Button>
-
-            <Button disabled={!stopVideoStream.isCallable} onClick={stopVideoStream}>
-              STOP_VIDEO_STREAM
-            </Button>
-            <Button disabled={!stopAudioStream.isCallable} onClick={stopAudioStream}>
-              STOP_AUDIO_STREAM
+              INIT
             </Button>
           </div>
-
-          <h2 className="text-3xl text-green-600 font-extrabold">Room</h2>
-          <div className="flex gap-4 flex-wrap">
-            <Button disabled={!produceAudio.isCallable} onClick={() => produceAudio(micStream)}>
-              PRODUCE_MIC
-            </Button>
-
-            <Button disabled={!produceVideo.isCallable} onClick={() => produceVideo(camStream)}>
-              PRODUCE_CAM
-            </Button>
-
-            <Button disabled={!stopProducingAudio.isCallable} onClick={() => stopProducingAudio()}>
-              STOP_PRODUCING_MIC
-            </Button>
-
-            <Button disabled={!stopProducingVideo.isCallable} onClick={() => stopProducingVideo()}>
-              STOP_PRODUCING_CAM
-            </Button>
-
+          <div className="create-room">
+            <h2 className="text-3xl text-red-500 font-extrabold">Create Room</h2>
+            <Input type="text" placeholder="Room Title" value={roomTitle} onChange={setRoomTitle} />
+            <Input
+              type="text"
+              placeholder="Wallet List"
+              value={walletList}
+              onChange={setWalletList}
+            />
             <Button
-              disabled={!startRecording.isCallable}
-              onClick={() => startRecording(`${window.location.href}rec/${roomId}`)}
+              onClick={() => {
+                handleCreateRoom(roomTitle, walletList.split(","));
+              }}
             >
-              {`START_RECORDING error: ${error}`}
-            </Button>
-            <Button disabled={!stopRecording.isCallable} onClick={stopRecording}>
-              STOP_RECORDING
-            </Button>
-
-            <Button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
-              LEAVE_ROOM
+              Create Room
             </Button>
           </div>
+          <div className="create-gated-room">
+            <h2 className="text-3xl text-red-500 font-extrabold">Create Room</h2>
+            <Input type="text" placeholder="Room Title" value={roomTitle} onChange={setRoomTitle} />
+            <Input
+              type="text"
+              placeholder="Wallet List"
+              value={walletList}
+              onChange={setWalletList}
+            />
+            <Button
+              onClick={() => {
+                handleCreateGatedRoom(roomTitle, walletList.split(","), "ERC20", "ETHEREUM", [
+                  "0x408e41876cCCDC0F92210600ef50372656052a38",
+                ]);
+              }}
+            >
+              Create Gated Room
+            </Button>
+          </div>
+          <div className="initialized">
+            <h2 className="text-3xl text-red-500 font-extrabold">Initialized</h2>
+            <Input type="text" placeholder="Your Room Id" value={roomId} onChange={setRoomId} />
+            <Input
+              type="text"
+              placeholder="Your Access Token (optional)"
+              value={accessToken}
+              onChange={setAccessToken}
+            />
+            <Button
+              disabled={!joinLobby.isCallable}
+              onClick={() => {
+                if (accessToken) joinLobby(roomId, accessToken);
+                else joinLobby(roomId);
+              }}
+            >
+              JOIN_LOBBY
+            </Button>
+          </div>
+          <div className="lobby">
+            <h2 className="text-3xl text-yellow-500 font-extrabold">Lobby</h2>
+            <div className="flex gap-4 flex-wrap">
+              <Input
+                type="text"
+                placeholder="Your Room Id"
+                value={displayNameText}
+                onChange={setDisplayNameText}
+              />
+              <Button
+                disabled={!setDisplayName.isCallable}
+                onClick={() => {
+                  setDisplayName(displayNameText);
+                }}
+              >
+                {`SET_DISPLAY_NAME error: ${displayNameError}`}
+              </Button>
+              <Button disabled={!fetchVideoStream.isCallable} onClick={fetchVideoStream}>
+                FETCH_VIDEO_STREAM
+              </Button>
 
+              <Button disabled={!fetchAudioStream.isCallable} onClick={fetchAudioStream}>
+                FETCH_AUDIO_STREAM
+              </Button>
+
+              <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
+                JOIN_ROOM
+              </Button>
+
+              <Button
+                disabled={!state.matches("Initialized.JoinedLobby")}
+                onClick={() => send("LEAVE_LOBBY")}
+              >
+                LEAVE_LOBBY
+              </Button>
+
+              <Button disabled={!stopVideoStream.isCallable} onClick={stopVideoStream}>
+                STOP_VIDEO_STREAM
+              </Button>
+              <Button disabled={!stopAudioStream.isCallable} onClick={stopAudioStream}>
+                STOP_AUDIO_STREAM
+              </Button>
+            </div>
+          </div>
+          <div className="room">
+            <h2 className="text-3xl text-green-600 font-extrabold">Room</h2>
+            <div className="flex gap-4 flex-wrap">
+              <Button disabled={!produceAudio.isCallable} onClick={() => produceAudio(micStream)}>
+                PRODUCE_MIC
+              </Button>
+
+              <Button disabled={!produceVideo.isCallable} onClick={() => produceVideo(camStream)}>
+                PRODUCE_CAM
+              </Button>
+
+              <Button
+                disabled={!stopProducingAudio.isCallable}
+                onClick={() => stopProducingAudio()}
+              >
+                STOP_PRODUCING_MIC
+              </Button>
+
+              <Button
+                disabled={!stopProducingVideo.isCallable}
+                onClick={() => stopProducingVideo()}
+              >
+                STOP_PRODUCING_CAM
+              </Button>
+
+              <Button
+                disabled={!startRecording.isCallable}
+                onClick={() => startRecording(`${window.location.href}rec/${roomId}`)}
+              >
+                {`START_RECORDING error: ${error}`}
+              </Button>
+              <Button disabled={!stopRecording.isCallable} onClick={stopRecording}>
+                STOP_RECORDING
+              </Button>
+
+              <Button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
+                LEAVE_ROOM
+              </Button>
+            </div>
+          </div>
           {/* Uncomment to see the Xstate Inspector */}
           {/* <Inspect /> */}
         </div>
-        <div>
-          Me Video:
-          <video ref={videoRef} autoPlay muted></video>
-          <div className="grid grid-cols-4">
+        <div className="video-section">
+          <div className="me-video">
+            Me Video:
+            <video ref={videoRef} autoPlay muted></video>
+          </div>
+          <div className="peers-video grid grid-cols-4">
             {Object.values(peers)
               .filter((peer) => peer.cam)
               .map((peer) => (
