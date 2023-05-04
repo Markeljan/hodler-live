@@ -1,3 +1,6 @@
+<img width="309" alt="hodler1" src="https://user-images.githubusercontent.com/12901349/236304940-5b44e38f-25b7-443e-9f26-2c20e0365721.png">
+
+
 # PROJECT LINKS
 - [DevFolio](https://devfolio.co/projects/hodler-live-a274)
 - [Website](https://hodler-live.vercel.app/)
